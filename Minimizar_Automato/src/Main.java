@@ -20,21 +20,15 @@ public class Main {
 
 	    	  if (bufferLinha.contains("<state")) {
 	    		  est.adicionarEstado(bufferLinha,bufferArq);
-	    	  }/*
-	    	  if (bufferLinha.contains("<from")) {
-	    		  //bufferDados = bufferLinha.substring(5, 6);
 	    	  }
-	    	  if (bufferLinha.contains("<to")) {
-	    		  //bufferDados = bufferLinha.substring(3, 4);
-	    		  //tr.to.add(bufferDados);
+	    	  if (bufferLinha.contains("<transition")) {
+	    		  tr.adicionarTransicao(bufferArq);
 	    	  }
-	    	  if (bufferLinha.contains("<read")) {
-	    		 // bufferDados = bufferLinha.substring(5, 6);
-	    		 // tr.read.add(bufferDados);
-	    	  }	    	  */
 	    	  bufferLinha = bufferArq.readLine(); // lê da segunda até a última linha
 	      }
 	      arq.close();
+		  Automato aut = new Automato(est.estado,tr.transicoes);
+		  aut.retirarEstInacessiveisInuteis(aut);
 	    } catch (IOException e) {
 	        System.err.printf("Erro na abertura do arquivo: %s.\n",
 	          e.getMessage());

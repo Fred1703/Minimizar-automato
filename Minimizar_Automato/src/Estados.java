@@ -2,9 +2,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Estados {
+public class Estados{
     String nome;
-	boolean ini,fim;
+    //public String getNome() {return nome;}
+	boolean ini;
+    //public boolean getIni() {return ini;}
+    boolean fim;
+    //public boolean getFim() {return fim;}
 	ArrayList<Estados> estado = new ArrayList<Estados>();
 	Estados(String _nome,boolean _ini,boolean _fim) {
 		nome = _nome;
@@ -15,24 +19,22 @@ public class Estados {
 	void adicionarEstado(String nome,BufferedReader bufferArq) {
             try {
             	boolean tempini = false,tempfim  = false;
-            	BufferedReader temp = bufferArq;
                 String nomeEstado = nome.substring(13, 14);
-                String linha = temp.readLine();
-                int i = 0;
+                String linha = bufferArq.readLine();
                 while (bufferArq != null){
                 	if (linha.contains("<initial")) {
                 		tempini = true;
                 	}
                 	if(linha.contains("<final")) {
                 		tempfim = true;
-                	}
-                	i++;                	
-                	linha = temp.readLine();
-                	if (i > 4) break;
+                	}              	
+                	if (linha.contains("</state")) break;
+                	linha = bufferArq.readLine();
                 }
                 estado.add(new Estados(nomeEstado,tempini,tempfim));
             }
             catch(IOException e){
             }
     }
+
 }
